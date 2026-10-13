@@ -1,0 +1,21 @@
+"use strict";
+
+const menuToggle = document.querySelector(".nav-toggle");
+const siteNav = document.querySelector("#site-nav");
+
+if (menuToggle && siteNav) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+    menuToggle.setAttribute("aria-expanded", String(!isOpen));
+    menuToggle.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
+    siteNav.classList.toggle("is-open", !isOpen);
+  });
+
+  siteNav.querySelectorAll("a[href^='#']").forEach((link) => {
+    link.addEventListener("click", () => {
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Abrir menú");
+      siteNav.classList.remove("is-open");
+    });
+  });
+}
